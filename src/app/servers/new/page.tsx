@@ -18,8 +18,10 @@ function Page() {
         <div>
           <label htmlFor="name">Nome</label>
           <input name="name" id="name" className="w-full border rounded p-2" />
-          {state?.errors?.name && (
-            <p className="text-red-500">{state.errors.name[0]}</p>
+          {state?.issues?.name && (
+            <p className="text-red-500">
+              {state.issues.name._errors.join(", ")}
+            </p>
           )}
         </div>
 
@@ -29,8 +31,10 @@ function Page() {
             <option value="VIP">VIP</option>
             <option value="Free">FREE</option>
           </select>
-          {state?.errors?.type && (
-            <p className="text-red-500">{state.errors.type[0]}</p>
+          {state?.issues?.type && (
+            <p className="text-red-500">
+              {state.issues.type._errors.join(", ")}
+            </p>
           )}
         </div>
 
@@ -42,8 +46,10 @@ function Page() {
             id="maxLevel"
             className="w-full border rounded p-2"
           />
-          {state?.errors?.maxLevel && (
-            <p className="text-red-500">{state.errors.maxLevel[0]}</p>
+          {state?.issues?.maxLevel && (
+            <p className="text-red-500">
+              {state.issues?.maxLevel?._errors?.join(", ")}
+            </p>
           )}
         </div>
 
@@ -57,8 +63,10 @@ function Page() {
             <option value="true">Sim</option>
             <option value="false">Não</option>
           </select>
-          {state?.errors?.active && (
-            <p className="text-red-500">{state.errors.active[0]}</p>
+          {state?.issues?.active && (
+            <p className="text-red-500">
+              {state.issues.active._errors.join(", ")}
+            </p>
           )}
         </div>
 
@@ -70,7 +78,7 @@ function Page() {
           {!pending ? "Criar Servidor" : ""}
         </button>
 
-        {state?.message && <p className="mt-2 text-sm">{state.message}</p>}
+        {state?.error && <p className="text-red-600 text-sm">{state.error}</p>}
       </form>
     </div>
   );
