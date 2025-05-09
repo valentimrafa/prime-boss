@@ -35,7 +35,7 @@ export async function loginUser(formData: FormData) {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     path: "/",
-    maxAge: 60 * 60,
+    maxAge: 60 * 60 * 5,
   });
 
   redirect("/");
