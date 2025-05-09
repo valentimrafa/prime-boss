@@ -13,6 +13,13 @@ class ServerService {
 
     return this.repository.create(parsed.data);
   }
+  async getById(id: string) {
+    return this.repository.getById(id);
+  }
+  async update(id: string, data: ServerInput) {
+    return this.repository.update(id, data);
+  }
+
   async getAll() {
     return this.repository.getAll();
   }
