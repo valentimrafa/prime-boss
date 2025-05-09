@@ -22,7 +22,7 @@ async function ServerPage() {
             <th className="border px-2 py-1">Tipo</th>
             <th className="border px-2 py-1">Level Máximo</th>
             <th className="border px-2 py-1">Ativo</th>
-            {/* <th className="border px-2 py-1">Ações</th> */}
+            <th className="border px-2 py-1">Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -32,17 +32,17 @@ async function ServerPage() {
               <td className="border px-2 py-1">{s.type}</td>
               <td className="border px-2 py-1">{s.maxLevel}</td>
               <td className="border px-2 py-1">{s.active ? "Sim" : "Não"}</td>
-              {/* <td className="border px-2 py-1 space-x-2">
-                <Link href={`/servidores/${s.id}`} className="text-blue-600">
+              <td className="border px-2 py-1 space-x-2">
+                <Link href={`/servers/edit/${s.id}`} className="text-blue-600">
                   Editar
                 </Link>
-                <button
+                {/* <button
                   onClick={() => handleDelete(s.id!)}
                   className="text-red-600"
                 >
                   Excluir
-                </button>
-              </td> */}
+                </button> */}
+              </td>
             </tr>
           ))}
         </tbody>
