@@ -1,8 +1,10 @@
 import { serverService } from "@/services/server.service";
 import Link from "next/link";
+import deleteServer from "./actions/deleteAction";
 
 async function ServerPage() {
   const servers = await serverService.getAll();
+
   return (
     <div className="p-4">
       <div className="flex justify-between mb-4">
@@ -36,12 +38,11 @@ async function ServerPage() {
                 <Link href={`/servers/edit/${s.id}`} className="text-blue-600">
                   Editar
                 </Link>
-                {/* <button
-                  onClick={() => handleDelete(s.id!)}
-                  className="text-red-600"
-                >
-                  Excluir
-                </button> */}
+                <form action={deleteServer.bind(null, s.id!)}>
+                  <button type="submit" className="text-red-600">
+                    Deletar
+                  </button>
+                </form>
               </td>
             </tr>
           ))}

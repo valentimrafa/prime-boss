@@ -2,6 +2,7 @@
 
 import { ServerInput, serverSchema, ServerTypes } from "@/schemas/serverSchema";
 import { serverService } from "@/services/server.service";
+import { redirect } from "next/navigation";
 
 async function createServer(formData: FormData) {
   const rawData: ServerInput = {
@@ -18,6 +19,7 @@ async function createServer(formData: FormData) {
   }
 
   await serverService.create(rawData);
+  redirect("/servers");
 }
 
 export default createServer;

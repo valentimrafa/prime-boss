@@ -16,13 +16,19 @@ class ServerService {
   async getById(id: string) {
     return this.repository.getById(id);
   }
+
   async update(id: string, data: ServerInput) {
     return this.repository.update(id, data);
+  }
+
+  async delete(id: string) {
+    return this.repository.delete(id);
   }
 
   async getAll() {
     return this.repository.getAll();
   }
+
   async find() {
     return this.repository.findBy([
       { field: "name", op: "==", value: "rafael" },

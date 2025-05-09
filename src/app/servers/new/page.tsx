@@ -1,5 +1,5 @@
 "use client";
-import createServer from "./action";
+import createServer from "../actions/createAction";
 
 import { useActionState } from "react";
 
@@ -29,7 +29,7 @@ function Page() {
           <label htmlFor="type">Tipo</label>
           <select name="type" id="type" className="w-full border rounded p-2">
             <option value="VIP">VIP</option>
-            <option value="Free">FREE</option>
+            <option value="FREE">FREE</option>
           </select>
           {state?.issues?.type && (
             <p className="text-red-500">
@@ -75,7 +75,7 @@ function Page() {
           className="bg-blue-600 text-white px-4 py-2 rounded"
           disabled={pending}
         >
-          {!pending ? "Criar Servidor" : ""}
+          {!pending ? "Criar Servidor" : "Criando..."}
         </button>
 
         {state?.error && <p className="text-red-600 text-sm">{state.error}</p>}
