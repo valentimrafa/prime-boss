@@ -17,7 +17,9 @@ import { FirestoreFilter } from "./FirestoreFilter";
 
 export type CollectionValues = (typeof COLLECTIONS)[keyof typeof COLLECTIONS];
 
-export abstract class FirestoreCrudRepository<T> implements ICrudRepository<T> {
+export abstract class FirestoreCrudRepository<T, TInput = T>
+  implements ICrudRepository<T, TInput>
+{
   protected collectionRef: CollectionReference;
   protected collectionName: CollectionValues;
 
@@ -26,9 +28,9 @@ export abstract class FirestoreCrudRepository<T> implements ICrudRepository<T> {
     this.collectionName = collectionName;
   }
 
-  async create(data: T): Promise<T> {
+  async create(data: TInput): Promise<TInput> {
     const ref = await addDoc(this.collectionRef, data as unknown);
-    return { ...(data as object), id: ref.id } as T;
+    return { ...(data as object), id: ref.id } as TInput;
   }
 
   async getAll(): Promise<T[]> {
@@ -43,7 +45,7 @@ export abstract class FirestoreCrudRepository<T> implements ICrudRepository<T> {
     return { id: snap.id, ...snap.data() } as T;
   }
 
-  async update(id: string, data: Partial<T>): Promise<void> {
+  async update(id: string, data: Partial<TInput>): Promise<void> {
     const ref = doc(this.collectionRef, id);
     await updateDoc(ref, data);
   }

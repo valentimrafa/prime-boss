@@ -23,10 +23,10 @@ export interface IFindByRepository<T> {
   findBy(filters: FirestoreFilter<T>[]): Promise<T[]>;
 }
 
-export interface ICrudRepository<T>
+export interface ICrudRepository<T, TInput = T>
   extends IFindByRepository<T>,
-    ICreateRepository<T>,
-    IUpdateRepository<T>,
+    ICreateRepository<TInput>,
+    IUpdateRepository<TInput>,
     IGetByIDRepository<T>,
     IGetAllRepository<T>,
     IDeleteRepository {}
