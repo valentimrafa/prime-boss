@@ -1,9 +1,11 @@
-import { serverService } from "@/services/server.service";
+// import { serverService } from "@/services/server.service";
 import Link from "next/link";
-import deleteServer from "./actions/deleteAction";
+// import deleteServer from "./actions/deleteAction";
+import SERVERS from "./servers";
 
 async function ServerPage() {
-  const servers = await serverService.getAll();
+  // const servers = await serverService.getAll();
+  const servers = SERVERS;
 
   return (
     <div className="p-4">
@@ -24,7 +26,7 @@ async function ServerPage() {
             <th className="border px-2 py-1">Tipo</th>
             <th className="border px-2 py-1">Level Máximo</th>
             <th className="border px-2 py-1">Ativo</th>
-            <th className="border px-2 py-1">Ações</th>
+            {/* <th className="border px-2 py-1">Ações</th> */}
           </tr>
         </thead>
         <tbody>
@@ -34,7 +36,7 @@ async function ServerPage() {
               <td className="border px-2 py-1">{s.type}</td>
               <td className="border px-2 py-1">{s.maxLevel}</td>
               <td className="border px-2 py-1">{s.active ? "Sim" : "Não"}</td>
-              <td className="border px-2 py-1 space-x-2">
+              {/* <td className="border px-2 py-1 space-x-2">
                 <Link href={`/servers/edit/${s.id}`} className="text-blue-600">
                   Editar
                 </Link>
@@ -43,7 +45,7 @@ async function ServerPage() {
                     Deletar
                   </button>
                 </form>
-              </td>
+              </td> */}
             </tr>
           ))}
         </tbody>
