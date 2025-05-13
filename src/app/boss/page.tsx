@@ -2,6 +2,7 @@
 
 import { bossService } from "@/services/boss.service";
 import Link from "next/link";
+import deleteBoss from "./actions/deleteBoss";
 
 async function BossPage() {
   const bosses = await bossService.getAll();
@@ -34,11 +35,11 @@ async function BossPage() {
                 <Link href={`/boss/edit/${boss.id}`} className="text-blue-600">
                   Editar
                 </Link>
-                {/* <form action={deleteServer.bind(null, s.id!)}>
-                  <button type="submit" className="text-red-600">
+                <form action={deleteBoss.bind(null, boss.id!)}>
+                  <button type="submit" className="text-red-600 cursor-pointer">
                     Deletar
                   </button>
-                </form> */}
+                </form>
               </td>
             </tr>
           ))}

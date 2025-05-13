@@ -22,7 +22,7 @@ async function createBoss(formData: FormData) {
   }
 
   await bossService.create(rawData);
-  redirect("/servers");
+  redirect("/boss");
 }
 
 export default createBoss;
