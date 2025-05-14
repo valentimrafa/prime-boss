@@ -1,4 +1,4 @@
-import { ServerInput } from "./../../schemas/serverSchema";
+import { ServerInput } from "../../../schemas/serverSchema";
 const SERVERS: ServerInput[] = [
   {
     id: "cR2kauFaVG4iAPgvFOx6",
