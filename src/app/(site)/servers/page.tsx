@@ -1,18 +1,9 @@
-import { serverService } from "@/services/server.service";
 import Link from "next/link";
 import deleteServer from "./actions/deleteAction";
-import { unstable_cache } from "next/cache";
-
-export const getServers = unstable_cache(
-  async () => {
-    return await serverService.getAll();
-  },
-  ["get:servers"],
-  { revalidate: 300, tags: ["get:servers"] }
-);
+import { getAllServers } from "@/lib/cache/data/server";
 
 async function ServerPage() {
-  const servers = await getServers();
+  const servers = await getAllServers();
 
   return (
     <div className="p-4">
