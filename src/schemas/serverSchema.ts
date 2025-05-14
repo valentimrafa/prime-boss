@@ -15,4 +15,4 @@ export const serverSchemaWithId = serverSchema.extend({
   id: z.string().optional(),
 });
 
-export type ServerInput = z.infer<typeof serverSchemaWithId>;
+export type ServerSchemaPayload = z.infer<typeof serverSchemaWithId>;

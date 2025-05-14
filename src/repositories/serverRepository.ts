@@ -1,8 +1,8 @@
 import { FirestoreCrudRepository } from "./base/firestore/FirestoreCrudRepository";
 import { COLLECTIONS } from "@/lib/firebase/collections";
-import { ServerInput } from "@/schemas/serverSchema";
+import { ServerSchemaPayload } from "@/schemas/serverSchema";
 
-class ServerRepository extends FirestoreCrudRepository<ServerInput> {
+class ServerRepository extends FirestoreCrudRepository<ServerSchemaPayload> {
   constructor() {
     super(COLLECTIONS.SERVERS);
   }

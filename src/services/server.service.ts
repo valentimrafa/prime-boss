@@ -1,11 +1,11 @@
 import { ICrudRepository } from "@/repositories/interfaces/ICrudRepository";
 import { serverRepository } from "@/repositories/serverRepository";
-import { ServerInput, serverSchema } from "@/schemas/serverSchema";
+import { ServerSchemaPayload, serverSchema } from "@/schemas/serverSchema";
 
 class ServerService {
-  constructor(private repository: ICrudRepository<ServerInput>) {}
+  constructor(private repository: ICrudRepository<ServerSchemaPayload>) {}
 
-  async create(data: ServerInput) {
+  async create(data: ServerSchemaPayload) {
     const parsed = serverSchema.safeParse(data);
     if (!parsed.success) {
       throw new Error(parsed.error.errors.map((e) => e.message).join(", "));
@@ -17,7 +17,7 @@ class ServerService {
     return this.repository.getById(id);
   }
 
-  async update(id: string, data: ServerInput) {
+  async update(id: string, data: ServerSchemaPayload) {
     return this.repository.update(id, data);
   }
 

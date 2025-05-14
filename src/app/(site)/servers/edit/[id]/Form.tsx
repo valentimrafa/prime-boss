@@ -1,13 +1,13 @@
 "use client";
 
-import { ServerInput } from "@/schemas/serverSchema";
+import { ServerSchemaPayload } from "@/schemas/serverSchema";
 import updateServer from "../../actions/updateAction";
 
 import { useActionState } from "react";
 
 interface ServerUpdateForm {
   id: string;
-  server: ServerInput;
+  server: ServerSchemaPayload;
 }
 
 function ServerUpdateForm({ id, server }: ServerUpdateForm) {
