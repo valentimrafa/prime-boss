@@ -1,20 +1,11 @@
 "use server";
 
-import { bossService } from "@/services/boss.service";
 import Link from "next/link";
 import deleteBoss from "./actions/deleteBoss";
-import { unstable_cache } from "next/cache";
-
-export const getBoss = unstable_cache(
-  async () => {
-    return await bossService.getAll();
-  },
-  ["get:boss"],
-  { revalidate: 300, tags: ["get:boss"] }
-);
+import { getAllBosses } from "@/lib/cache/data/boss";
 
 async function BossPage() {
-  const bosses = await getBoss();
+  const bosses = await getAllBosses();
   return (
     <div className="p-4">
       <div className="flex justify-between mb-4">
