@@ -21,10 +21,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-br">
+    <html lang="pt-br ">
       <body className={`${roboto.variable}`}>
         <Header />
-        {children}
+        <main className="bg-gray-200">{children}</main>
+        <div id="portal-root" />
       </body>
     </html>
   );
