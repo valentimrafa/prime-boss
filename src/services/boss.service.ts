@@ -1,3 +1,4 @@
+import { WithCache } from "@/decorators/withCache";
 import { bossRepository } from "@/repositories/bossRepository";
 import { ICrudRepository } from "@/repositories/interfaces/ICrudRepository";
 import {
@@ -5,11 +6,25 @@ import {
   BossSchemaInput,
   bossSchema,
 } from "@/schemas/bossSchema";
+import { revalidateTag } from "next/cache";
 
 class BossService {
   constructor(
     private repository: ICrudRepository<BossSchemaPayload, BossSchemaInput>
   ) {}
+
+  @WithCache<{ id: string }[], { id: string }>({
+    key: ([id]) => [`boss:${id}`],
+    revalidate: 6000,
+  })
+  async getById(id: string) {
+    return this.repository.getById(id);
+  }
+
+  @WithCache({ revalidate: 500, key: () => ["boss:getall"] })
+  async getAll() {
+    return this.repository.getAll();
+  }
 
   async create(data: BossSchemaInput) {
     const parsed = bossSchema.safeParse(data);
@@ -17,23 +32,23 @@ class BossService {
       throw new Error(parsed.error.errors.map((e) => e.message).join(", "));
     }
 
-    return this.repository.create(parsed.data);
-  }
-
-  async getById(id: string) {
-    return this.repository.getById(id);
+    const boss = await this.repository.create(parsed.data);
+    revalidateTag("boss:getall");
+    return boss;
   }
 
   async update(id: string, data: BossSchemaInput) {
-    return this.repository.update(id, data);
+    const boss = await this.repository.update(id, data);
+    revalidateTag(`boss:${id}`);
+    revalidateTag("boss:getall");
+    return boss;
   }
 
   async delete(id: string) {
-    return this.repository.delete(id);
-  }
-
-  async getAll() {
-    return this.repository.getAll();
+    const boss = this.repository.delete(id);
+    revalidateTag(`boss:${id}`);
+    revalidateTag("boss:getall");
+    return boss;
   }
 }
 
