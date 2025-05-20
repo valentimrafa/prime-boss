@@ -1,10 +1,7 @@
 "use server";
-import { GET_ALL_BOSS_CACHE_KEY } from "@/lib/cache/data/boss";
 import { BossSchemaInput, bossSchema } from "@/schemas/bossSchema";
 import { bossService } from "@/services/boss.service";
 import { redirect } from "next/navigation";
-
-import { revalidateTag } from "next/cache";
 
 async function createBoss(formData: FormData) {
   const rawData: BossSchemaInput = {
@@ -24,7 +21,6 @@ async function createBoss(formData: FormData) {
   }
 
   await bossService.create(rawData);
-  revalidateTag(GET_ALL_BOSS_CACHE_KEY);
   redirect("/boss");
 }
 

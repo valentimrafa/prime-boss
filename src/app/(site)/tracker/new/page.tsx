@@ -1,10 +1,10 @@
 import { getAllServers } from "@/lib/cache/data/server";
 import FormNewTracker from "./form";
-import { getAllBosses } from "@/lib/cache/data/boss";
+import { bossService } from "@/services/boss.service";
 
 async function NewTrackerPage() {
   const servers = await getAllServers();
-  const bosses = await getAllBosses();
+  const bosses = await bossService.getAll();
 
   return (
     <section className="p-8">

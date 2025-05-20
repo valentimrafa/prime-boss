@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import deleteBoss from "./actions/deleteBoss";
-import { getAllBosses } from "@/lib/cache/data/boss";
+import { bossService } from "@/services/boss.service";
 
 async function BossPage() {
-  const bosses = await getAllBosses();
+  const bosses = await bossService.getAll();
   return (
     <div className="p-4">
       <div className="flex justify-between mb-4">
