@@ -1,19 +1,11 @@
-import { BossTrackerCard } from "@/components/BossTrackerCard";
+import { BossTrackerList } from "@/components/BossTrackerList";
 import { bossTrackerService } from "@/services/bossTracker.service";
 
 async function BossTrackerPage() {
-  const BossTracker = await bossTrackerService.getAll();
+  const bossTrackerList = await bossTrackerService.getAll();
   return (
-    <div className="flex flex-col gap-4 p-4">
-      {BossTracker.map((bossTrack) => {
-        return (
-          <BossTrackerCard
-            key={bossTrack.id}
-            bossTrack={bossTrack}
-            actions={["edit", "kill", "exclude"]}
-          />
-        );
-      })}
+    <div className=" p-4">
+      <BossTrackerList bossTrackerList={bossTrackerList} />
     </div>
   );
 }

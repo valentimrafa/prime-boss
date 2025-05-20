@@ -2,9 +2,9 @@
 
 import { updateBossTrackStatus } from "@/actions/boss-tracker/updateBossTracker";
 import { FiClock } from "react-icons/fi";
-import Modal from "../Modal";
+import Modal from "../../Modal";
 import { useState } from "react";
-import InputTime from "../InputTime";
+import InputTime from "../../InputTime";
 
 interface ButtonTimeProps {
   id: string;
