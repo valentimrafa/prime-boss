@@ -46,7 +46,10 @@ class BossTrackerService {
           boss: await bossService.getById(bossTrack.idBoss),
           server: await serverService.getById(bossTrack.idServer),
           status: bossTrack.status,
-          rebirth: bossTrack.rebirth,
+          rebirth: {
+            seconds: bossTrack.rebirth.seconds,
+            nanoseconds: bossTrack.rebirth.nanoseconds,
+          },
         };
       })
     );
