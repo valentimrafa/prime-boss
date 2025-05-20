@@ -26,7 +26,7 @@ export function WithCache<Args extends unknown[], Return>(
       const cachedFn = unstable_cache(
         () => originalMethod.apply(this, args),
         cacheKey,
-        { revalidate: config.revalidate ?? 60 }
+        { revalidate: config.revalidate ?? 60, tags: cacheKey }
       );
 
       return cachedFn();
