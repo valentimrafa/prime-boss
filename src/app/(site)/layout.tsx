@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "../globals.css";
 import Header from "@/components/Header";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 const roboto = Roboto({
   weight: ["400", "700"],
@@ -15,11 +17,17 @@ export const metadata: Metadata = {
   description: "Prime Loot",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieStore = await cookies();
+  const session = cookieStore.get("token");
+
+  if (!session) {
+    redirect("/login");
+  }
   return (
     <html lang="pt-br ">
       <body className={`${roboto.variable}`}>

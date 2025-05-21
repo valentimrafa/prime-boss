@@ -38,5 +38,5 @@ export async function loginUser(formData: FormData) {
     maxAge: 60 * 60 * 5,
   });
 
-  redirect("/");
+  redirect("/tracker");
 }
