@@ -65,6 +65,20 @@ export default function BossTrackerFilters({
     }
   };
 
+  const ordenedServers = servers.sort((a, b) => {
+    const aSplitedName = Number(a.name.split(" ")[1]);
+    const bSplitedName = Number(b.name.split(" ")[1]);
+
+    if (aSplitedName > bSplitedName) {
+      return 1;
+    }
+    if (aSplitedName < bSplitedName) {
+      return -1;
+    }
+
+    return 0;
+  });
+
   return (
     <div className="flex flex-wrap gap-4 items-center ">
       {/* Servidores Dropdown */}
@@ -78,7 +92,7 @@ export default function BossTrackerFilters({
         </button>
         {openDropdown === "servers" && (
           <div className="absolute z-10 mt-2 w-56 bg-white border rounded-lg shadow-lg max-h-64 overflow-y-auto">
-            {servers.map((server) => (
+            {ordenedServers.map((server) => (
               <label
                 key={server.id}
                 className="flex items-center gap-2 p-2 hover:bg-gray-100"
