@@ -1,9 +1,9 @@
-import { getAllServers } from "@/lib/cache/data/server";
+import { serverService } from "@/services/server.service";
 import FormNewTracker from "./form";
 import { bossService } from "@/services/boss.service";
 
 async function NewTrackerPage() {
-  const servers = await getAllServers();
+  const servers = await serverService.getAll();
   const bosses = await bossService.getAll();
 
   return (

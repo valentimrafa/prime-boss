@@ -1,9 +1,9 @@
 import Link from "next/link";
 import deleteServer from "./actions/deleteAction";
-import { getAllServers } from "@/lib/cache/data/server";
+import { serverService } from "@/services/server.service";
 
 async function ServerPage() {
-  const servers = await getAllServers();
+  const servers = await serverService.getAll();
 
   return (
     <div className="p-4">
