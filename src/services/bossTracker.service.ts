@@ -9,6 +9,9 @@ import {
 } from "@/schemas/bossTrackerSchema";
 import { serverService } from "./server.service";
 import { bossService } from "./boss.service";
+import { WithCache } from "@/decorators/withCache";
+import { revalidateTag } from "next/cache";
+
 class BossTrackerService {
   constructor(
     private repository: ICrudRepository<
@@ -24,6 +27,7 @@ class BossTrackerService {
       status: data.status,
       rebirth: calculateNextBossDateTime(data.nextRebirthHour),
     };
+    revalidateTag("tracker:getall");
     await this.repository.create(storeData);
   }
 
@@ -34,9 +38,12 @@ class BossTrackerService {
         rebirth: calculateNextBossDateTime(data.nextRebirthHour),
       }),
     };
+    revalidateTag("tracker:getall");
+
     await this.repository.update(id, storeData);
   }
 
+  @WithCache({ revalidate: 600, key: () => ["tracker:getall"] })
   async getAll(): Promise<BossTrackerSchemaFullPayload[]> {
     const trackedBosses = await this.repository.getAll();
     const data = await Promise.all(

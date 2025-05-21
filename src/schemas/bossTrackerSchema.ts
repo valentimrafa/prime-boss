@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { bossSchema } from "./bossSchema";
-import { serverSchema } from "./serverSchema";
+import { bossSchemaWithId } from "./bossSchema";
+import { serverSchemaWithId } from "./serverSchema";
 
 export const statusType = ["MORTO", "PENDENTE"] as const;
 
@@ -45,8 +45,8 @@ export type BossTrackerSchemaPayload = z.infer<typeof bossTrackerSchemaPayload>;
 
 export const bossTrackerSchemaFullPayload = z.object({
   id: z.string(),
-  boss: bossSchema.nullable(),
-  server: serverSchema.nullable(),
+  boss: bossSchemaWithId.nullable(),
+  server: serverSchemaWithId.nullable(),
   status: z.enum(statusType),
   rebirth: z.object({
     seconds: z.string(),

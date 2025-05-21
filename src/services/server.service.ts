@@ -1,11 +1,17 @@
 import { WithCache } from "@/decorators/withCache";
 import { ICrudRepository } from "@/repositories/interfaces/ICrudRepository";
 import { serverRepository } from "@/repositories/serverRepository";
-import { ServerSchemaPayload, serverSchema } from "@/schemas/serverSchema";
+import {
+  ServerSchemaInput,
+  serverSchemaInput,
+  ServerSchemaPayload,
+} from "@/schemas/serverSchema";
 import { revalidateTag } from "next/cache";
 
 class ServerService {
-  constructor(private repository: ICrudRepository<ServerSchemaPayload>) {}
+  constructor(
+    private repository: ICrudRepository<ServerSchemaPayload, ServerSchemaInput>
+  ) {}
 
   @WithCache({ revalidate: 500, key: () => ["server:getall"] })
   async getAll() {
@@ -20,8 +26,8 @@ class ServerService {
     return this.repository.getById(id);
   }
 
-  async create(data: ServerSchemaPayload) {
-    const parsed = serverSchema.safeParse(data);
+  async create(data: ServerSchemaInput) {
+    const parsed = serverSchemaInput.safeParse(data);
     if (!parsed.success) {
       throw new Error(parsed.error.errors.map((e) => e.message).join(", "));
     }
@@ -29,7 +35,7 @@ class ServerService {
     return this.repository.create(parsed.data);
   }
 
-  async update(id: string, data: ServerSchemaPayload) {
+  async update(id: string, data: ServerSchemaInput) {
     const server = this.repository.update(id, data);
     revalidateTag("server:getall");
     revalidateTag(`server:${id}`);
