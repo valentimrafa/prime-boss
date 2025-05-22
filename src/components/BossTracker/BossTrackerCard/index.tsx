@@ -3,7 +3,7 @@ import { DateTime } from "luxon";
 import { ButtonStatus } from "./ButtonStatus";
 import { ButtonTime } from "./ButtonTime";
 
-type Actions = "exclude" | "edit" | "kill";
+export type Actions = "exclude" | "edit" | "kill";
 
 interface BossTrackerCardProps {
   boss: BossTrackerSchemaFullPayload;
@@ -70,6 +70,7 @@ export function BossTrackerCard({ boss, actions = [] }: BossTrackerCardProps) {
 
   const blockButtonClock =
     boss.status === "MORTO" && waitingDateTimeHigherThanNow;
+
   return (
     <div
       className={`grow w-full bg-white rounded-2xl shadow-md border-l-6 transition-colors ${borderCardColorStatus} uppercase`}
@@ -106,7 +107,9 @@ export function BossTrackerCard({ boss, actions = [] }: BossTrackerCardProps) {
           </p>
         </div>
         <div className="flex gap-2 flex-wrap p-4 justify-center items-start md:items-center md:flex-col">
-          {actions.includes("kill") && <ButtonStatus id={boss.id} />}
+          {actions.includes("kill") && (
+            <ButtonStatus id={boss.id} disabled={isFuture} />
+          )}
           {actions.includes("edit") && (
             <ButtonTime id={boss.id} disabled={blockButtonClock} />
           )}
