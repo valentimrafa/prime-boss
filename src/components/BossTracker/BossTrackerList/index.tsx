@@ -23,7 +23,7 @@ export function BossTrackerList({ bossTrackerList }: BossTrackerListProps) {
     return matchServer && matchBoss && matchStatus;
   });
 
-  const actions: Actions[] = ["edit"];
+  const actions: Actions[] = ["edit", "exclude"];
 
   if (selectedStatus !== "MORTO") {
     actions.push("kill");

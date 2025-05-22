@@ -1,7 +1,10 @@
+"use client";
+
 import { BossTrackerSchemaFullPayload } from "@/schemas/bossTrackerSchema";
 import { DateTime } from "luxon";
 import { ButtonStatus } from "./ButtonStatus";
 import { ButtonTime } from "./ButtonTime";
+import ButtonDelete from "./ButtonDelete";
 
 export type Actions = "exclude" | "edit" | "kill";
 
@@ -113,11 +116,7 @@ export function BossTrackerCard({ boss, actions = [] }: BossTrackerCardProps) {
           {actions.includes("edit") && (
             <ButtonTime id={boss.id} disabled={blockButtonClock} />
           )}
-          {/* {actions.includes("exclude") && (
-            <button className="cursor-pointer px-4 py-2 border text-white bg-red-500 border-red-500 rounded hover:bg-red-500 hover:brightness-90 transition">
-              <FiTrash2 />
-            </button>
-          )} */}
+          {actions.includes("exclude") && <ButtonDelete id={boss.id} />}
         </div>
       </div>
     </div>

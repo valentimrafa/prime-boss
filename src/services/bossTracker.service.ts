@@ -43,6 +43,11 @@ class BossTrackerService {
     await this.repository.update(id, storeData);
   }
 
+  async delete(id: string) {
+    await this.repository.delete(id);
+    revalidateTag("tracker:getall");
+  }
+
   @WithCache({ revalidate: 600, key: () => ["tracker:getall"] })
   async getAll(): Promise<BossTrackerSchemaFullPayload[]> {
     const trackedBosses = await this.repository.getAll();
