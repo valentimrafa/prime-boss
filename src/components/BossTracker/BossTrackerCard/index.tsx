@@ -5,6 +5,7 @@ import { DateTime } from "luxon";
 import { ButtonStatus } from "./ButtonStatus";
 import { ButtonTime } from "./ButtonTime";
 import ButtonDelete from "./ButtonDelete";
+import BossTimer from "./BossTimer";
 
 export type Actions = "exclude" | "edit" | "kill";
 
@@ -27,17 +28,17 @@ function getFormatedTime(timestamp: number, bossWaitingTime: number) {
   const formatted = bossDate.toFormat("dd/MM/yyyy HH:mm");
 
   const isFuture = bossDate > now;
-  let timeToRebirthText = "";
-  if (isFuture) {
-    const diff = bossDate.diff(now, ["hours", "minutes"]).toObject();
-    const hours = Math.floor(diff.hours ?? 0);
-    const minutes = Math.floor(diff.minutes ?? 0);
-    if (hours) {
-      timeToRebirthText = `Faltam ${hours} horas e ${minutes} minutos para o boss nascer`;
-    } else {
-      timeToRebirthText = `Faltam ${minutes} minuto(s) para o boss nascer`;
-    }
-  }
+  // let timeToRebirthText = "";
+  // if (isFuture) {
+  // const diff = bossDate.diff(now, ["hours", "minutes"]).toObject();
+  // const hours = Math.floor(diff.hours ?? 0);
+  // const minutes = Math.floor(diff.minutes ?? 0);
+  // if (hours) {
+  // timeToRebirthText = `Faltam ${hours} horas e ${minutes} minutos para o boss nascer`;
+  // } else {
+  // timeToRebirthText = `Faltam ${minutes} minuto(s) para o boss nascer`;
+  // }
+  // }
 
   const formattedNextLiberationTime = minDateTimeWaiting
     .diff(now)
@@ -47,7 +48,7 @@ function getFormatedTime(timestamp: number, bossWaitingTime: number) {
 
   return {
     isFuture,
-    timeToRebirthText,
+    // timeToRebirthText,
     formatedDateTimeToRebirth: formatted,
     formattedNextLiberationTime,
     waitingDateTimeHigherThanNow,
@@ -56,7 +57,7 @@ function getFormatedTime(timestamp: number, bossWaitingTime: number) {
 
 export function BossTrackerCard({ boss, actions = [] }: BossTrackerCardProps) {
   const {
-    timeToRebirthText,
+    // timeToRebirthText,
     formatedDateTimeToRebirth,
     formattedNextLiberationTime,
     isFuture,
@@ -68,11 +69,10 @@ export function BossTrackerCard({ boss, actions = [] }: BossTrackerCardProps) {
 
   const borderColor =
     boss.status === "MORTO" ? "border-red-500" : "border-green-500";
-  const borderCardColorStatus =
-    timeToRebirthText !== "" ? borderColor : "border-yellow-500";
-
   const blockButtonClock =
     boss.status === "MORTO" && waitingDateTimeHigherThanNow;
+
+  const borderCardColorStatus = isFuture ? borderColor : "border-yellow-500";
 
   return (
     <div
@@ -87,9 +87,7 @@ export function BossTrackerCard({ boss, actions = [] }: BossTrackerCardProps) {
 
           <p className="font-bold">
             {boss.status === "PENDENTE" && isFuture && (
-              <span className="bg-green-100 px-4 py-2 rounded-sm">
-                {timeToRebirthText}
-              </span>
+              <BossTimer time={boss.rebirth.seconds} />
             )}
 
             {boss.status === "PENDENTE" && !isFuture && (
