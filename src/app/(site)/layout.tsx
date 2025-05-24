@@ -4,6 +4,7 @@ import "../globals.css";
 import Header from "@/components/Header";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { Providers } from "@/providers";
 
 const roboto = Roboto({
   weight: ["400", "700"],
@@ -31,9 +32,11 @@ export default async function RootLayout({
   return (
     <html lang="pt-br ">
       <body className={`${roboto.variable}`}>
-        <Header />
-        <main className="bg-gray-200">{children}</main>
-        <div id="portal-root" />
+        <Providers>
+          <Header />
+          <main className="bg-gray-200">{children}</main>
+          <div id="portal-root" />
+        </Providers>
       </body>
     </html>
   );
