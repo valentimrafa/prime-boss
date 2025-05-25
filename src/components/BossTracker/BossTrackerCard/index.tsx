@@ -102,11 +102,9 @@ export function BossTrackerCard({ boss, actions = [] }: BossTrackerCardProps) {
           {BOSS_STATUS.pending && <BossTimer time={boss.rebirth.seconds} />}
 
           {BOSS_STATUS.late && (
-            <LateBoss
-              rebirth={boss.rebirth.seconds}
-              minTimeRespawn={boss.boss?.rules.min_time || 0}
-              id={boss.id}
-            />
+            <div className="bg-yellow-100 px-4 py-2 rounded-sm font-bold flex flex-col gap-2">
+              <p>BOSS ATRASADO</p>
+            </div>
           )}
           <p className="font-bold">
             {BOSS_STATUS.waitingLiberationTime && (
