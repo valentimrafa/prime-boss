@@ -1,7 +1,7 @@
 "use client";
 
 import { ServerSchemaPayload } from "@/schemas/serverSchema";
-import updateServer from "../../actions/updateAction";
+import updateServer from "@/actions/servers/updateAction";
 
 import { useActionState } from "react";
 

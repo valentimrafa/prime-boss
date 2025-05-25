@@ -1,5 +1,5 @@
 import Link from "next/link";
-import deleteServer from "./actions/deleteAction";
+import deleteServer from "@/actions/servers/deleteAction";
 import { serverService } from "@/services/server.service";
 
 async function ServerPage() {

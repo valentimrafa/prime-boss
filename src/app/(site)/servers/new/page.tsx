@@ -1,5 +1,5 @@
 "use client";
-import createServer from "../actions/createAction";
+import createServer from "@/actions/servers/createAction";
 
 import { useActionState } from "react";
 
