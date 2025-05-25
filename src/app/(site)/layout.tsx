@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { Providers } from "@/providers";
+import { ToastContainer } from "react-toastify";
 
 const roboto = Roboto({
   weight: ["400", "700"],
@@ -37,6 +38,7 @@ export default async function RootLayout({
           <main className="bg-gray-200">{children}</main>
           <div id="portal-root" />
         </Providers>
+        <ToastContainer />
       </body>
     </html>
   );

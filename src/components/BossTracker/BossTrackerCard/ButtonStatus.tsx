@@ -1,6 +1,6 @@
 "use client";
 
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { updateBossTrackStatus } from "@/actions/boss-tracker/updateBossTracker";
 import { FaSkullCrossbones } from "react-icons/fa";
 
@@ -30,7 +30,6 @@ export function ButtonStatus({ id, disabled }: ButtonStatusProps) {
       <button className="cursor-pointer text-white px-4 py-2 bg-red-500 rounded hover:brightness-90">
         <FaSkullCrossbones size={19} />
       </button>
-      <ToastContainer />
     </form>
   );
 }
