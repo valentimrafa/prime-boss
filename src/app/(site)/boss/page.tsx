@@ -1,7 +1,7 @@
 "use server";
 
 import Link from "next/link";
-import deleteBoss from "./actions/deleteBoss";
+import deleteBoss from "@/actions/boss/deleteBoss";
 import { bossService } from "@/services/boss.service";
 
 async function BossPage() {

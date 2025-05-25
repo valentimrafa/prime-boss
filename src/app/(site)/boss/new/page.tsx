@@ -1,5 +1,5 @@
 "use client";
-import createBoss from "../actions/createAction";
+import createBoss from "@/actions/boss/createAction";
 
 import { useActionState } from "react";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useActionState } from "react";
-import updateAction from "../../actions/updateAction";
+import updateAction from "@/actions/boss/updateAction";
 import { BossSchemaPayload } from "@/schemas/bossSchema";
 
 interface BossEditPageProps {
