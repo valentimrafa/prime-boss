@@ -48,5 +48,7 @@ export default function BossTimer({ time: targetTimestamp }: BossTimerProps) {
     )} minuto(s) para o boss nascer`;
   }
 
-  return <span className="bg-green-100 px-4 py-2 rounded-sm">{formatted}</span>;
+  return (
+    <p className="font-bold bg-green-100 px-4 py-2 rounded-sm">{formatted}</p>
+  );
 }
