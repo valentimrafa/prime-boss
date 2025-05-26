@@ -6,7 +6,6 @@ import { ButtonStatus } from "./ButtonStatus";
 import { ButtonTime } from "./ButtonTime";
 import ButtonDelete from "./ButtonDelete";
 import BossTimer from "./BossTimer";
-import LateBoss from "./LateBoss";
 import { TIMEZONE } from "@/constants";
 
 export type Actions = "exclude" | "edit" | "kill";
