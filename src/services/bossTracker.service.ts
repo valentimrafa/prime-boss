@@ -78,6 +78,21 @@ class BossTrackerService {
     });
     return ordenedData;
   }
+
+  async resetBosses() {
+    const trackedBosses = await this.repository.getAll();
+    await Promise.all(
+      trackedBosses.map(async (bossTrack) => {
+        const boss = await bossService.getById(bossTrack.idBoss);
+        const newHour = calculateNextBossDateTime(
+          `${String(boss?.rules.time_waiting)}:00`
+        );
+
+        await this.repository.update(bossTrack.id, { rebirth: newHour });
+      })
+    );
+    revalidateTag("tracker:getall");
+  }
 }
 
 export const bossTrackerService = new BossTrackerService(bossTrackerRepository);
