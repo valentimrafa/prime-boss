@@ -83,12 +83,12 @@ class BossTrackerService {
     const trackedBosses = await this.repository.getAll();
     await Promise.all(
       trackedBosses.map(async (bossTrack) => {
-        const boss = await bossService.getById(bossTrack.idBoss);
-        const newHour = calculateNextBossDateTime(
-          `${String(boss?.rules.time_waiting)}:00`
-        );
+        const newHour = calculateNextBossDateTime(`01:00`);
 
-        await this.repository.update(bossTrack.id, { rebirth: newHour });
+        await this.repository.update(bossTrack.id, {
+          rebirth: newHour,
+          status: "MORTO",
+        });
       })
     );
     revalidateTag("tracker:getall");
