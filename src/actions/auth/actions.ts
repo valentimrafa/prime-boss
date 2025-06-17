@@ -1,8 +1,8 @@
 "use server";
 
 import { loginSchema, LoginForm } from "@/schemas/loginSchema";
-import { mockUsers } from "./users";
-import { generateToken } from "./auth";
+import { mockUsers } from "../../app/(auth)/login/users";
+import { generateToken } from "../../app/(auth)/login/auth";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -35,7 +35,7 @@ export async function loginUser(formData: FormData) {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     path: "/",
-    maxAge: 60 * 60 * 5,
+    maxAge: 60 * 60 * 24,
   });
 
   redirect("/tracker");
