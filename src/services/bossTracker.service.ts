@@ -25,22 +25,22 @@ class BossTrackerService {
       idBoss: data.idBoss,
       idServer: data.idServer,
       status: data.status,
-      rebirth: calculateNextBossDateTime(data.nextRebirthHour),
+      min_time_rebirth: calculateNextBossDateTime(data.minTimeRebirthHour),
+      max_time_rebirth: calculateNextBossDateTime(data.maxTimeRebirthHour),
     };
     revalidateTag("tracker:getall");
     await this.repository.create(storeData);
   }
 
   async update(id: string, data: Partial<BossTrackerSchemaFormInput>) {
-    const storeData: Partial<BossTrackerSchemaStoreInput> = {
-      ...data,
-      ...(data.nextRebirthHour && {
-        rebirth: calculateNextBossDateTime(data.nextRebirthHour),
-      }),
-    };
-    revalidateTag("tracker:getall");
-
-    await this.repository.update(id, storeData);
+    // const storeData: Partial<BossTrackerSchemaStoreInput> = {
+    //   ...data,
+    //   ...(data.nextRebirthHour && {
+    //     rebirth: calculateNextBossDateTime(data.nextRebirthHour),
+    //   }),
+    // };
+    // revalidateTag("tracker:getall");
+    // await this.repository.update(id, storeData);
   }
 
   async delete(id: string) {
@@ -51,6 +51,7 @@ class BossTrackerService {
   @WithCache({ revalidate: 600, key: () => ["tracker:getall"] })
   async getAll(): Promise<BossTrackerSchemaFullPayload[]> {
     const trackedBosses = await this.repository.getAll();
+
     const data = await Promise.all(
       trackedBosses.map(async (bossTrack) => {
         return {
@@ -58,19 +59,23 @@ class BossTrackerService {
           boss: await bossService.getById(bossTrack.idBoss),
           server: await serverService.getById(bossTrack.idServer),
           status: bossTrack.status,
-          rebirth: {
-            seconds: bossTrack.rebirth.seconds,
-            nanoseconds: bossTrack.rebirth.nanoseconds,
+          min_time_rebirth: {
+            seconds: bossTrack.min_time_rebirth.seconds,
+            nanoseconds: bossTrack.min_time_rebirth.nanoseconds,
+          },
+          max_time_rebirth: {
+            seconds: bossTrack.max_time_rebirth.seconds,
+            nanoseconds: bossTrack.max_time_rebirth.nanoseconds,
           },
         };
       })
     );
 
     const ordenedData = data.sort((a, b) => {
-      if (a.rebirth.seconds < b.rebirth.seconds) {
+      if (a.min_time_rebirth.seconds < b.min_time_rebirth.seconds) {
         return -1;
       }
-      if (a.rebirth.seconds > b.rebirth.seconds) {
+      if (a.min_time_rebirth.seconds > b.min_time_rebirth.seconds) {
         return 1;
       }
 

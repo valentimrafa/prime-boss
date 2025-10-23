@@ -17,13 +17,27 @@ function FormNewTracker({ servers, bosses }: FormNewTrackerProps) {
   async function createServerAction(_prevState: unknown, formData: FormData) {
     return await createBossTracker(formData);
   }
+
+  const ordenedServers = servers.sort((a, b) => {
+    const aSplitedName = Number(a.name.split(" ")[1]);
+    const bSplitedName = Number(b.name.split(" ")[1]);
+
+    if (aSplitedName > bSplitedName) {
+      return 1;
+    }
+    if (aSplitedName < bSplitedName) {
+      return -1;
+    }
+
+    return 0;
+  });
   return (
     <form action={formAction} className="space-y-4 max-w-md">
       <div>
         <label htmlFor="server">Server</label>
         <select name="server" id="server" className="w-full border rounded p-2">
           {servers.length &&
-            servers.map((server) => (
+            ordenedServers.map((server) => (
               <option value={server.id} key={server.id}>
                 {server.name}
               </option>
@@ -52,11 +66,18 @@ function FormNewTracker({ servers, bosses }: FormNewTrackerProps) {
         )}
       </div>
       <InputTime
-        name="rebirth"
-        id="rebirth"
-        label="Próximo Nascimento"
+        name="min_rebirth"
+        id="min_rebirth"
+        label="Tempo Minimo"
         required
-        error={state?.issues?.nextRebirthHour?._errors?.join(", ")}
+        error={state?.issues?.minTimeRebirthHour?._errors?.join(", ")}
+      />
+      <InputTime
+        name="max_rebirth"
+        id="max_rebirth"
+        label="Tempo Maximo"
+        required
+        error={state?.issues?.maxTimeRebirthHour?._errors?.join(", ")}
       />
 
       <button

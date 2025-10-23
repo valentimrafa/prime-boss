@@ -10,7 +10,10 @@ export const bossTrackerSchemaFormInput = z.object({
   idBoss: z.string(),
   idServer: z.string(),
   status: z.enum(statusType),
-  nextRebirthHour: z.string().regex(/^([01]\d|2[0-3]):([0-5]\d)$/, {
+  minTimeRebirthHour: z.string().regex(/^([01]\d|2[0-3]):([0-5]\d)$/, {
+    message: "Formato de hora inválido. Use HH:MM",
+  }),
+  maxTimeRebirthHour: z.string().regex(/^([01]\d|2[0-3]):([0-5]\d)$/, {
     message: "Formato de hora inválido. Use HH:MM",
   }),
 });
@@ -23,7 +26,8 @@ export const bossTrackerSchemaStoreInput = z.object({
   idBoss: z.string(),
   idServer: z.string(),
   status: z.enum(statusType),
-  rebirth: z.date(),
+  min_time_rebirth: z.date(),
+  max_time_rebirth: z.date(),
 });
 
 export type BossTrackerSchemaStoreInput = z.infer<
@@ -35,7 +39,11 @@ export const bossTrackerSchemaPayload = z.object({
   idBoss: z.string(),
   idServer: z.string(),
   status: z.enum(statusType),
-  rebirth: z.object({
+  min_time_rebirth: z.object({
+    seconds: z.string(),
+    nanoseconds: z.string(),
+  }),
+  max_time_rebirth: z.object({
     seconds: z.string(),
     nanoseconds: z.string(),
   }),
@@ -48,7 +56,11 @@ export const bossTrackerSchemaFullPayload = z.object({
   boss: bossSchemaWithId.nullable(),
   server: serverSchemaWithId.nullable(),
   status: z.enum(statusType),
-  rebirth: z.object({
+  min_time_rebirth: z.object({
+    seconds: z.string(),
+    nanoseconds: z.string(),
+  }),
+  max_time_rebirth: z.object({
     seconds: z.string(),
     nanoseconds: z.string(),
   }),

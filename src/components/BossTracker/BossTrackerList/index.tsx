@@ -1,7 +1,8 @@
 "use client";
 
 import { BossTrackerSchemaFullPayload } from "@/schemas/bossTrackerSchema";
-import { Actions, BossTrackerCard } from "../BossTrackerCard";
+import BossTrackerCardV2 from "../BossTrackerCardV2";
+// import { Actions, BossTrackerCard } from "../BossTrackerCard";
 import { useBossTrackerFilters } from "@/store/useBossTrackerFilters";
 
 interface BossTrackerListProps {
@@ -11,7 +12,6 @@ interface BossTrackerListProps {
 export function BossTrackerList({ bossTrackerList }: BossTrackerListProps) {
   const { selectedServers, selectedBosses, selectedStatus } =
     useBossTrackerFilters();
-
   const filteredList = bossTrackerList.filter((boss) => {
     const matchServer =
       selectedServers.length === 0 ||
@@ -22,17 +22,23 @@ export function BossTrackerList({ bossTrackerList }: BossTrackerListProps) {
     const matchStatus = !selectedStatus || boss.status === selectedStatus;
     return matchServer && matchBoss && matchStatus;
   });
-
-  const actions: Actions[] = ["edit", "exclude"];
-
-  if (selectedStatus !== "MORTO") {
-    actions.push("kill");
-  }
   return (
     <div className="flex flex-col gap-4">
       {filteredList.map((boss) => {
-        return <BossTrackerCard key={boss.id} boss={boss} actions={actions} />;
+        return <BossTrackerCardV2 key={boss.id} boss={boss} />;
       })}
     </div>
   );
+
+  // const actions: Actions[] = ["edit", "exclude"];
+  // if (selectedStatus !== "MORTO") {
+  //   actions.push("kill");
+  // }
+  // return (
+  //   <div className="flex flex-col gap-4">
+  //     {filteredList.map((boss) => {
+  //       return <BossTrackerCard key={boss.id} boss={boss} actions={actions} />;
+  //     })}
+  //   </div>
+  // );
 }

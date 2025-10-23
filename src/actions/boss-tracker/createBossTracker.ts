@@ -11,7 +11,8 @@ async function createBossTracker(formData: FormData) {
   const rawData: BossTrackerSchemaFormInput = {
     idBoss: String(formData.get("boss")),
     idServer: String(formData.get("server")),
-    nextRebirthHour: String(formData.get("rebirth")),
+    minTimeRebirthHour: String(formData.get("min_rebirth")),
+    maxTimeRebirthHour: String(formData.get("max_rebirth")),
     status: "PENDENTE",
   };
 

@@ -10,6 +10,7 @@ async function BossTrackerPage() {
   const servers = await serverService.getAll();
   const bosses = await bossService.getAll();
   const bossTrackerList = await bossTrackerService.getAll();
+
   return (
     <div className="flex flex-col gap-4 p-4">
       <div className="flex justify-between">
