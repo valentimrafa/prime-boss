@@ -4,7 +4,19 @@ import { serverService } from "@/services/server.service";
 
 async function ServerPage() {
   const servers = await serverService.getAll();
+  const ordenedServers = servers.sort((a, b) => {
+    const splitedServerA = Number(a.name.split(" ")[1]);
+    const splitedServerB = Number(b.name.split(" ")[1]);
+    if (splitedServerA < splitedServerB) {
+      return -1;
+    }
 
+    if (splitedServerB > splitedServerA) {
+      return 1;
+    }
+
+    return 0;
+  });
   return (
     <div className="p-4">
       <div className="flex justify-between mb-4">
@@ -28,7 +40,7 @@ async function ServerPage() {
           </tr>
         </thead>
         <tbody>
-          {servers.map((s) => (
+          {ordenedServers.map((s) => (
             <tr key={s.id}>
               <td className="border px-2 py-1">{s.name}</td>
               <td className="border px-2 py-1">{s.type}</td>

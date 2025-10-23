@@ -35,7 +35,7 @@ export default async function RootLayout({
       <body className={`${roboto.variable}`}>
         <Providers>
           <Header />
-          <main className="bg-gray-200">{children}</main>
+          <main className="bg-white min-h-dvh">{children}</main>
           <div id="portal-root" />
         </Providers>
         <ToastContainer />
