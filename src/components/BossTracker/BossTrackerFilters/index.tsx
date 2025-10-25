@@ -3,7 +3,7 @@
 import { useBossTrackerFilters } from "@/store/useBossTrackerFilters";
 import { ServerSchemaPayload } from "@/schemas/serverSchema";
 import { BossSchemaPayload } from "@/schemas/bossSchema";
-import { StatusType } from "@/schemas/bossTrackerSchema";
+// import { StatusType } from "@/schemas/bossTrackerSchema";
 import { useEffect, useRef, useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
 
@@ -19,10 +19,10 @@ export default function BossTrackerFilters({
   const {
     selectedServers,
     selectedBosses,
-    selectedStatus,
+    // selectedStatus,
     setSelectedServers,
     setSelectedBosses,
-    setSelectedStatus,
+    // setSelectedStatus,
   } = useBossTrackerFilters();
 
   const serversRef = useRef<HTMLDivElement>(null);
@@ -145,7 +145,7 @@ export default function BossTrackerFilters({
         )}
       </div>
 
-      <div className="flex">
+      {/* <div className="flex">
         {(["PENDENTE", "MORTO"] as StatusType[]).map((status) => (
           <button
             key={status}
@@ -159,7 +159,7 @@ export default function BossTrackerFilters({
             {status}
           </button>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }

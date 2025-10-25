@@ -22,7 +22,7 @@ export function ButtonStatus({ id, disabled }: ButtonStatusProps) {
         theme: "light",
       });
     } else {
-      await updateBossTrackStatus(id, { status: "MORTO" });
+      await updateBossTrackStatus(id, { nextRebirthHour: "01:50" });
     }
   }
   return (
