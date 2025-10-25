@@ -7,7 +7,7 @@ export default function Header() {
         <p className="font-bold text-2xl">Prime Boss</p>
         <ul className="flex gap-4">
           <li className="font-bold">
-            <Link href="/halloween">Halloween</Link>
+            <Link href="/tracker">Halloween</Link>
           </li>
           <li className="font-bold">
             <Link href="/servers">Servers</Link>
