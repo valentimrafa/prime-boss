@@ -6,5 +6,5 @@ export type User = {
 };
 
 export const mockUsers: User[] = [
-  { id: 1, name: "Administrador", username: "prime", password: "primeboss" },
+  { id: 1, name: "Administrador", username: "kaoz", password: "guildkaoz123" },
 ];
