@@ -3,7 +3,7 @@
 import { BossTrackerSchemaFullPayload } from "@/schemas/bossTrackerSchema";
 import { DateTime } from "luxon";
 import { ButtonStatus } from "./ButtonStatus";
-// import { ButtonTime } from "./ButtonTime";
+import { ButtonTime } from "./ButtonTime";
 import ButtonDelete from "./ButtonDelete";
 import BossTimer from "./BossTimer";
 import { TIMEZONE } from "@/constants";
@@ -122,12 +122,12 @@ export function BossTrackerCard({ boss, actions = [] }: BossTrackerCardProps) {
           {actions.includes("kill") && (
             <ButtonStatus id={boss.id} disabled={false} />
           )}
-          {/* {actions.includes("edit") && (
+          {actions.includes("edit") && (
             <ButtonTime
               id={boss.id}
               disabled={BOSS_STATUS.waitingLiberationTime}
             />
-          )} */}
+          )}
           {actions.includes("exclude") && <ButtonDelete id={boss.id} />}
         </div>
       </div>
