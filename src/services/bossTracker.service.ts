@@ -11,6 +11,8 @@ import { serverService } from "./server.service";
 import { bossService } from "./boss.service";
 import { WithCache } from "@/decorators/withCache";
 import { revalidateTag } from "next/cache";
+import { serverRepository } from "@/repositories/serverRepository";
+import { bossRepository } from "@/repositories/bossRepository";
 
 class BossTrackerService {
   constructor(
@@ -80,17 +82,37 @@ class BossTrackerService {
   }
 
   async resetBosses() {
-    const trackedBosses = await this.repository.getAll();
-    await Promise.all(
-      trackedBosses.map(async (bossTrack) => {
-        const newHour = calculateNextBossDateTime(`01:00`);
+    const bosses = await bossRepository.getAll();
+    const servers = await serverRepository.getAll();
 
-        await this.repository.update(bossTrack.id, {
-          rebirth: newHour,
-          status: "MORTO",
+    const bossServerRelations: BossTrackerSchemaStoreInput[] = [];
+
+    for (const boss of bosses) {
+      for (const server of servers) {
+        bossServerRelations.push({
+          idServer: server.id,
+          idBoss: boss.id,
+          status: "PENDENTE",
+          rebirth: calculateNextBossDateTime("04:35"),
         });
+      }
+    }
+    await Promise.all(
+      bossServerRelations.map(async (bossTrack) => {
+        await this.repository.create(bossTrack);
       })
     );
+    // const trackedBosses = await this.repository.getAll();
+    // await Promise.all(
+    //   trackedBosses.map(async (bossTrack) => {
+    //     const newHour = calculateNextBossDateTime(`01:00`);
+
+    //     await this.repository.update(bossTrack.id, {
+    //       rebirth: newHour,
+    //       status: "MORTO",
+    //     });
+    //   })
+    // );
     revalidateTag("tracker:getall");
   }
 }
