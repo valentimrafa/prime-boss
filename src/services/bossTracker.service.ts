@@ -93,7 +93,7 @@ class BossTrackerService {
           idServer: server.id,
           idBoss: boss.id,
           status: "PENDENTE",
-          rebirth: calculateNextBossDateTime("03:50"),
+          rebirth: calculateNextBossDateTime("01:10"),
         });
       }
     }
